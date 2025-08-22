@@ -10,20 +10,29 @@ class RememberForgotRow extends StatelessWidget {
   Widget build(BuildContext context) {
     final c = Get.find<AuthController>();
     return Row(
+
       children: [
         // Remember me (checkbox + label)
-        Obx(() => Checkbox(
-          value: c.rememberMe.value,
-          onChanged: (v) => c.toggleRemember(v ?? false),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+        Obx(() => Transform.scale(
+          scale: 0.8,
+          child: Checkbox(
+            value: c.rememberMe.value,
+            onChanged: (v) => c.toggleRemember(v ?? false),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(3),
+            ),
+          ),
         )),
-        const Text("Remember me"),
-        const Spacer(),
-        // Forgot password
-        TextButton(
-          onPressed: c.forgotPassword,
-          child: const Text("Forgot password?",style: TextStyle(fontSize: 12,fontWeight: FontWeight.w500,color: Color(0xFF00C49A)),),
-        ),
+
+        Expanded(child: Row(
+       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+       children: [   const Text("Remember me"),
+
+       // Forgot password
+       TextButton(
+         onPressed: c.forgotPassword,
+         child: const Text("Forgot password?",style: TextStyle(fontSize: 12,fontWeight: FontWeight.w500,color: Color(0xFF00C49A)),),
+       ),],))
       ],
     );
   }
