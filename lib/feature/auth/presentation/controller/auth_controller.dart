@@ -1,7 +1,9 @@
-
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../../setting/presentation/view/about_screen.dart';
+import '../../../setting/presentation/view/trems_condition_screen.dart';
 
 import '../view/reset_password_view.dart';
 
@@ -18,14 +20,27 @@ class AuthController extends GetxController {
   final confirmPasswordController = TextEditingController();
   final rememberMe = false.obs;
 
+  final otpController = TextEditingController();
+
   void toggleRemember(bool value) => rememberMe.value = value;
 
+  void toggleRegister(bool value) => rememberMe.value = value;
+
   void forgotPassword() {
-  Get.to(()=>ResetPasswordScreen());
+    Get.to(() => ResetPasswordScreen());
   }
+
+  void termOfService() {
+    Get.to(() =>TermsConditionsView ());
+  }
+
+  void privacyPolicy() {
+    Get.to(() => AboutAppScreen());
+  }
+
   final Dio dio = Dio(
     BaseOptions(
-      baseUrl: "https://your-api-url.com/api/v1", // <-- এখানে তোমার API URL বসাও
+      baseUrl: "https://your-api-url.com/api/v1",
       connectTimeout: const Duration(seconds: 10),
       receiveTimeout: const Duration(seconds: 10),
     ),
@@ -53,9 +68,9 @@ class AuthController extends GetxController {
 
       if (response.statusCode == 200) {
         final token = response.data["token"];
-        final role = response.data["user"]["role"]; // ধরো API role ফেরত দেয়
+        final role = response.data["user"]["role"];
 
-        Get.snackbar("Success", "Login Successful ✅");
+        Get.snackbar("Success", "Login Successful ");
 
         // Role-based Navigation
         if (role == "user") {

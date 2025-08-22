@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:preisslerslunch/core/common/widgets/custom_botton.dart';
-
-import 'package:preisslerslunch/core/common/widgets/custom_text_field.dart';
+import 'package:preisslerslunch/feature/auth/presentation/view/sign_in.dart';
 
 import '../../../../core/common/common_text.dart';
-import 'otp_code_screen.dart';
+import '../../../../core/common/widgets/custom_botton.dart';
+import '../../../../core/common/widgets/custom_text_field.dart';
 
-class ResetPasswordScreen extends StatelessWidget {
-  ResetPasswordScreen({super.key});
-  final emailController = TextEditingController();
-
+class SetResetPasswordView extends StatelessWidget {
+   SetResetPasswordView({super.key});
+  final newPasswordController = TextEditingController();
+  final confrimPasswordController =TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,27 +17,33 @@ class ResetPasswordScreen extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
-         // crossAxisAlignment: CrossAxisAlignment.center,
+          //crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SizedBox(height: 150,),
+            const SizedBox(height: 80),
             appName,
-            const SizedBox(height: 100),
-            const Text( 'Reset password', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),),
+            const SizedBox(height: 80),
+            const Text('Reset password', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),),
             const SizedBox(height: 10),
             const Text(
               'Enter your email to receive the OTP',
               style: TextStyle(fontSize: 16, color: Colors.grey),
             ),
-
             const SizedBox(height: 30),
             CustomTextField(
-              controller: emailController,
-              hintText: "Enter your email",
+              controller: newPasswordController,
+              hintText: "New Password",
               prefixIcon: Icons.email_outlined,
             ),
-
-            const SizedBox(height: 30),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 15.0),
+              child: CustomTextField(
+                controller: confrimPasswordController,
+                hintText: "Confirm Password",
+                prefixIcon: Icons.email_outlined,
+              ),
+            ),
+            //const SizedBox(height: 30),
             CustomActionButton(
               idleText: "Send OTP",
               loadingText: "OTP Send...",
@@ -53,7 +57,7 @@ class ResetPasswordScreen extends StatelessWidget {
 
                   if (success) {
                     controller.setDone();
-                    Get.to(()=>OtpCodeScreenView());
+                    Get.to(()=> SignInScreen());
                   } else {
                     controller.setError();
                   }
@@ -76,10 +80,8 @@ class ResetPasswordScreen extends StatelessWidget {
               style: TextStyle(fontSize: 16, color: Colors.grey),
             ),
 
-            Spacer(),
-            Align(alignment: Alignment.bottomCenter,
 
-                child: BottonText())
+            BottonText()
           ],
         ),
       ),
